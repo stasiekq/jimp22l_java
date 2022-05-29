@@ -5,12 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-
-
+import javafx.stage.Stage;
 
 public class HelloController
 {
@@ -25,14 +21,5 @@ public class HelloController
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showSaveDialog(primaryStage);
-        try {
-            PrintWriter writer;
-            writer = new PrintWriter(file);
-            writer.println(sampleText);
-            writer.close();
-        } catch (IOException ex)
-        {
-            System.out.println("Coś się nie powiodło");
-        }
     }
 }
