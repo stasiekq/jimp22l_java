@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
@@ -17,20 +18,34 @@ public class HelloController
     @FXML
     private Button gen_but;
     @FXML
+    public TextField txt_field1;
+    @FXML
+    public TextField txt_field2;
+    @FXML
+    public TextField txt_field3;
+    @FXML
+    public TextField txt_field4;
+    @FXML
     protected void generateGraph()
     {
         final Stage primaryStage = new Stage();
-        final String sampleText = "Przykladowy tekst";
+        PrintWriter writer;
+        int wiersze = 2;
+        int kolumny = 2;
+        wiersze = Integer.parseInt(txt_field1.getText());
+        kolumny = Integer.parseInt(txt_field2.getText());
+        final String napis_wiersze = Integer.toString(wiersze);
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showSaveDialog(primaryStage);
-        try {
-            PrintWriter writer;
+        try
+        {
             writer = new PrintWriter(file);
-            writer.println(sampleText);
+            writer.println(napis_wiersze);
             writer.close();
-        } catch (IOException ex)
+        }
+        catch (IOException ex)
         {
             System.out.println("Coś się nie powiodło");
         }
