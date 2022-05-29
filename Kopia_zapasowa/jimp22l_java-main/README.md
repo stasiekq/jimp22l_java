@@ -1,1 +1,0 @@
-# jimp22l_java
