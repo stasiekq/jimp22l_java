@@ -6,8 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="gui_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kgraph.HelloController">
    <children>
       <Group layoutX="38.0" layoutY="82.0">
          <children>
@@ -18,17 +17,17 @@
             </Group>
          </children>
       </Group>
-      <TextField layoutX="38.0" layoutY="121.0" prefHeight="25.0" prefWidth="80.0" />
-      <TextField layoutX="136.0" layoutY="121.0" prefHeight="25.0" prefWidth="80.0" />
-      <TextField layoutX="38.0" layoutY="157.0" prefHeight="25.0" prefWidth="178.0" />
+      <TextField fx:id="txt_field3" layoutX="38.0" layoutY="121.0" prefHeight="25.0" prefWidth="80.0" />
+      <TextField fx:id="txt_field4" layoutX="136.0" layoutY="121.0" prefHeight="25.0" prefWidth="80.0" />
+      <TextField fx:id="txt_field5" layoutX="38.0" layoutY="157.0" prefHeight="25.0" prefWidth="178.0" />
       <RadioButton layoutX="38.0" layoutY="200.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="80.0" text="Spójny" />
       <Group layoutX="38.0" layoutY="82.0">
          <children>
-            <TextField prefHeight="25.0" prefWidth="80.0" />
-            <TextField layoutX="98.0" prefHeight="25.0" prefWidth="80.0" />
+            <TextField fx:id="txt_field1" prefHeight="25.0" prefWidth="80.0" />
+            <TextField fx:id="txt_field2" layoutX="98.0" prefHeight="25.0" prefWidth="80.0" />
          </children>
       </Group>
       <RadioButton layoutX="136.0" layoutY="200.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="80.0" text="Niespójny" />
-      <Button layoutX="101.0" layoutY="228.0" mnemonicParsing="false" text="Button" />
+      <Button fx:id="gen_but" layoutX="101.0" layoutY="228.0" mnemonicParsing="false" onAction="#generateGraph" text="Generate" />
    </children>
 </Pane>

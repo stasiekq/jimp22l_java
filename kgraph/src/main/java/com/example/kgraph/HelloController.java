@@ -4,25 +4,22 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import java.io.File;
+import javafx.stage.Stage;
 
 public class HelloController
 {
     @FXML
-    private Label welcomeText;
-
+    private Button gen_but;
     @FXML
-    private Button helloButton;
-
-    @FXML
-    private Label welcomeText1;
-
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
-
-    public void PROBA(MouseEvent mouseEvent)
+    protected void generateGraph()
     {
-        welcomeText1.setText("sraken pierdaken");
+        final Stage primaryStage = new Stage();
+        final String sampleText = "Przykladowy tekst";
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showSaveDialog(primaryStage);
     }
 }
