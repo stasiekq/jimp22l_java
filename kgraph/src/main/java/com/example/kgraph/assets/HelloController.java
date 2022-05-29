@@ -1,4 +1,4 @@
-package com.example.kgraph;
+package com.example.kgraph.assets;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

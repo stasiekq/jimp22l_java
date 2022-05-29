@@ -13,4 +13,6 @@ module com.example.kgraph {
 
     opens com.example.kgraph to javafx.fxml;
     exports com.example.kgraph;
+    exports com.example.kgraph.assets;
+    opens com.example.kgraph.assets to javafx.fxml;
 }
