@@ -42,7 +42,10 @@ public class HelloController
         try
         {
             writer = new PrintWriter(file);
-            writer.println(napis_wiersze);
+            for (int iterator = 0; iterator < wiersze * kolumny; iterator++)
+            {
+                writer.println(napis_wiersze);
+            }
             writer.close();
         }
         catch (IOException ex)
