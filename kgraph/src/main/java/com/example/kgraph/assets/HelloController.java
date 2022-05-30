@@ -116,10 +116,18 @@ public class HelloController
                 {
                     if ((i + 1) % kolumny != 0)
                     {
-                        losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
-                        losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
-                        writer.print(" " + (i + 1) + " :");
-                        writer.print(losowa2 + " ");
+                        if (i + 1 == wiersze * kolumny - 1)
+                        {
+                            writer.print(" " + (i + 1) + " :");
+                            writer.print("-1.000000");
+                        }
+                        else
+                        {
+                            losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
+                            losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
+                            writer.print(" " + (i + 1) + " :");
+                            writer.print(losowa2 + " ");
+                        }
                     }
                     if (i % kolumny != 0)
                     {
@@ -137,10 +145,18 @@ public class HelloController
                     }
                     if (i < (wiersze - 1) * kolumny)
                     {
-                        losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
-                        losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
-                        writer.print(" " + (i + kolumny) + " :");
-                        writer.print(losowa2 + " ");
+                        if (i + kolumny == wiersze * kolumny - 1)
+                        {
+                            writer.print(" " + (i + kolumny) + " :");
+                            writer.print("-1.000000");
+                        }
+                        else
+                        {
+                            losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
+                            losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
+                            writer.print(" " + (i + kolumny) + " :");
+                            writer.print(losowa2 + " ");
+                        }
                     }
                     if (i != wiersze * kolumny - 1)
                     {
