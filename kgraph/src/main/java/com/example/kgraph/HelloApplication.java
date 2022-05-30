@@ -22,11 +22,8 @@ public class HelloApplication extends Application
 
     public static void main(String[] args)
     {
-        Graph nowy = new Graph(4, 5);
-        nowy.add(new Node(1));
-
+        ReadFile.czytajPlik();
         System.out.println("DZIALA?");
-        System.out.println(nowy);
         launch();
     }
 }
