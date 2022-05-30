@@ -22,7 +22,6 @@ public class HelloApplication extends Application
 
     public static void main(String[] args)
     {
-        ReadFile.czytajPlik();
         System.out.println("DZIALA?");
         launch();
     }

@@ -3,14 +3,19 @@ package com.example.kgraph.assets;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class ReadFile{
 
     public static Grid czytajPlik()
     {
-
+        final Stage openFile = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
         Grid g = new Grid();
-        File plik = new File("C:/Users/stasz/Desktop/corr/test3.txt");
+        File plik = fileChooser.showOpenDialog(openFile);
             try {
                 Scanner myReader = new Scanner(plik);
                 String line = myReader.nextLine();

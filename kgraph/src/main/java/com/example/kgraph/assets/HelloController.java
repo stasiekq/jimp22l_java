@@ -2,7 +2,6 @@ package com.example.kgraph.assets;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -44,16 +43,18 @@ public class HelloController
         niespojny.setSelected(true);
         spojny.setSelected(false);
     }
+
+
     @FXML
     protected void generateGraph()
     {
         final Stage primaryStage = new Stage();
         PrintWriter writer;
-        int wiersze = 2;
-        int kolumny = 2;
-        double dolna_granica = 1.0;
-        double gorna_granica = 5.0;
-        double losowa = 0.0;
+        int wiersze;
+        int kolumny;
+        double dolna_granica;
+        double gorna_granica;
+        double losowa;
         String losowa2;
         wiersze = Integer.parseInt(txt_field1.getText());
         kolumny = Integer.parseInt(txt_field2.getText());
@@ -171,5 +172,10 @@ public class HelloController
         {
             System.out.println("Coś się nie powiodło");
         }
+    }
+    @FXML
+    public void openFile()
+    {
+        Grid f1 = ReadFile.czytajPlik();
     }
 }

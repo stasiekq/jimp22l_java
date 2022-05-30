@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane fx:id="gui_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kgraph.assets.HelloController">
+<Pane fx:id="gui_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="555.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kgraph.assets.HelloController">
    <children>
       <TextField fx:id="txt_field3" layoutX="38.0" layoutY="121.0" prefHeight="25.0" prefWidth="80.0" />
       <TextField fx:id="txt_field4" layoutX="136.0" layoutY="121.0" prefHeight="25.0" prefWidth="80.0" />
@@ -15,5 +15,6 @@
       <TextField fx:id="txt_field2" layoutX="136.0" layoutY="82.0" prefHeight="25.0" prefWidth="80.0" />
       <RadioButton fx:id="niespojny" layoutX="136.0" layoutY="200.0" mnemonicParsing="false" onAction="#chooseIncoherent" prefHeight="17.0" prefWidth="80.0" text="Niespójny" />
       <Button fx:id="gen_but" layoutX="101.0" layoutY="228.0" mnemonicParsing="false" onAction="#generateGraph" text="Generate" />
+      <Button fx:id="op_but" layoutX="367.0" layoutY="228.0" mnemonicParsing="false" onAction="#openFile" prefHeight="25.0" prefWidth="64.0" text="Open" />
    </children>
 </Pane>
