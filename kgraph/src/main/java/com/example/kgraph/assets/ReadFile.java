@@ -31,8 +31,22 @@ public class ReadFile{
                     {
                         System.out.println(sasiedzi[i]);
                         System.out.println(sasiedzi[i + 2]);
-                        v.addNeigh(Integer.parseInt(sasiedzi[i]));
-                        v.addWeight(Double.parseDouble(sasiedzi[i + 2]));
+                        try
+                        {
+                            v.addNeigh(Integer.parseInt(sasiedzi[i]));
+                        }
+                        catch(NumberFormatException ex)
+                        {
+                            throw new RuntimeException(ex);
+                        }
+                        try
+                        {
+                            v.addWeight(Double.parseDouble(sasiedzi[i + 2]));
+                        }
+                        catch(NumberFormatException ex)
+                        {
+                            throw new RuntimeException(ex);
+                        }
                     }
                     System.out.println("________");
                     g.addDimensions(v);

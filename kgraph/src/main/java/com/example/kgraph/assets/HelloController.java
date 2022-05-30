@@ -120,7 +120,7 @@ public class HelloController
                         if (i + 1 == wiersze * kolumny - 1)
                         {
                             writer.print(" " + (i + 1) + " :");
-                            writer.print("-1.000000");
+                            writer.print("-1.000000 ");
                         }
                         else
                         {
@@ -149,7 +149,7 @@ public class HelloController
                         if (i + kolumny == wiersze * kolumny - 1)
                         {
                             writer.print(" " + (i + kolumny) + " :");
-                            writer.print("-1.000000");
+                            writer.print("-1.000000 ");
                         }
                         else
                         {
@@ -163,7 +163,7 @@ public class HelloController
                     {
                         writer.print("\n\t");
                     }
-                    else writer.print("\n");
+                    else writer.print("\n\t");
                 }
             }
             writer.close();
