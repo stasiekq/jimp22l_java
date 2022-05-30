@@ -3,14 +3,17 @@ package com.example.kgraph.assets;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class HelloController
@@ -26,15 +29,36 @@ public class HelloController
     @FXML
     public TextField txt_field4;
     @FXML
+    public ToggleButton spojny;
+    @FXML
+    public ToggleButton niespojny;
+    @FXML
+    protected void chooseCoherent()
+    {
+        niespojny.setSelected(false);
+        spojny.setSelected(true);
+    }
+    @FXML
+    protected void chooseIncoherent()
+    {
+        niespojny.setSelected(true);
+        spojny.setSelected(false);
+    }
+    @FXML
     protected void generateGraph()
     {
         final Stage primaryStage = new Stage();
         PrintWriter writer;
         int wiersze = 2;
         int kolumny = 2;
+        double dolna_granica = 1.0;
+        double gorna_granica = 5.0;
+        double losowa = 0.0;
+        String losowa2;
         wiersze = Integer.parseInt(txt_field1.getText());
         kolumny = Integer.parseInt(txt_field2.getText());
-        final String napis_wiersze = Integer.toString(wiersze);
+        dolna_granica = Double.parseDouble(txt_field3.getText());
+        gorna_granica = Double.parseDouble(txt_field4.getText());
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
         fileChooser.getExtensionFilters().add(extFilter);
@@ -42,9 +66,88 @@ public class HelloController
         try
         {
             writer = new PrintWriter(file);
-            for (int iterator = 0; iterator < wiersze * kolumny; iterator++)
+            writer.print(wiersze);
+            writer.print(" ");
+            writer.println(kolumny);
+            writer.print("\t");
+            if (spojny.isSelected() == true)
             {
-                writer.println(napis_wiersze);
+                for (int i = 0; i < wiersze * kolumny; i++)
+                {
+
+                    if ((i + 1) % kolumny != 0)
+                    {
+                        losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
+                        losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
+                        writer.print(" " + (i + 1) + " :");
+                        writer.print(losowa2 + " ");
+                    }
+                    if (i % kolumny != 0)
+                    {
+                        losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
+                        losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
+                        writer.print(" " + (i - 1) + " :");
+                        writer.print(losowa2 + " ");
+                    }
+                    if (i >= kolumny)
+                    {
+                        losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
+                        losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
+                        writer.print(" " + (i - kolumny) + " :");
+                        writer.print(losowa2 + " ");
+                    }
+                    if (i < (wiersze - 1) * kolumny)
+                    {
+                        losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
+                        losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
+                        writer.print(" " + (i + kolumny) + " :");
+                        writer.print(losowa2 + " ");
+                    }
+                    if (i != wiersze * kolumny - 1)
+                    {
+                        writer.print("\n\t");
+                    }
+                    else writer.print("\n");
+                }
+            }
+            else
+            {
+                for (int i = 0; i < wiersze * kolumny; i++)
+                {
+                    if ((i + 1) % kolumny != 0)
+                    {
+                        losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
+                        losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
+                        writer.print(" " + (i + 1) + " :");
+                        writer.print(losowa2 + " ");
+                    }
+                    if (i % kolumny != 0)
+                    {
+                        losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
+                        losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
+                        writer.print(" " + (i - 1) + " :");
+                        writer.print(losowa2 + " ");
+                    }
+                    if (i >= kolumny)
+                    {
+                        losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
+                        losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
+                        writer.print(" " + (i - kolumny) + " :");
+                        writer.print(losowa2 + " ");
+                    }
+                    if (i < (wiersze - 1) * kolumny)
+                    {
+                        losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
+                        losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
+                        writer.print(" " + (i + kolumny) + " :");
+                        writer.print(losowa2 + " ");
+                    }
+                    if (i != wiersze * kolumny - 1)
+                    {
+                        writer.print("\n\t");
+                    }
+                    else writer.print("\n");
+                }
             }
             writer.close();
         }
