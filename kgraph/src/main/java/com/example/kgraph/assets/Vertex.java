@@ -3,9 +3,9 @@ package com.example.kgraph.assets;
 import java.util.ArrayList;
 
 public class Vertex {
-    private int id ;
-    private ArrayList <Integer> neighbours = new ArrayList<Integer>();
-    private ArrayList <Double> weights = new ArrayList<Double>();
+    private int id;
+    private ArrayList<Integer> neighbours = new ArrayList<Integer>();
+    private ArrayList<Double> weights = new ArrayList<Double>();
     private static int vertNumber = 0;
 
     public Vertex() {
