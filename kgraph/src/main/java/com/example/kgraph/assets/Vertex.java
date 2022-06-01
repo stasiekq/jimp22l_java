@@ -20,5 +20,12 @@ public class Vertex {
         this.weights.add(d);
     }
 
+    /*public void getNeighbourWeights() {
+        for(int i = 0; i < this.neighbours.size(); i++)
+        {
+            System.out.println(neighbours[i]);
+        }
+    }*/
+
 
 }

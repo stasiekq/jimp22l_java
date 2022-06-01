@@ -8,4 +8,11 @@ public class Grid {
     public void addDimensions(Vertex v) {
         this.graf.add(v);
     }
+
+    /*public void Iterate() {
+        for(int i = 0; i < this.graf.size())
+        {
+            this.graf[i].
+        }
+    }*/
 }

@@ -27,7 +27,7 @@ public class ReadFile{
                     line = myReader.nextLine();
                     String[] sasiedzi = line.split(" |:|'\n'|'\t'");
                     Vertex v = new Vertex();
-                    for(int i = 1; i < sasiedzi.length; i+=4)
+                    for(int i = 1; i < sasiedzi.length; i += 4)
                     {
                         System.out.println(sasiedzi[i]);
                         System.out.println(sasiedzi[i + 2]);
