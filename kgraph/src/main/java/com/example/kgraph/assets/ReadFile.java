@@ -26,6 +26,7 @@ public class ReadFile {
             String[] wymiary = line.split(" ", 0);
             int rows = Integer.parseInt(wymiary[0]);
             int columns = Integer.parseInt(wymiary[1]);
+
             while (myReader.hasNextLine()) { // WYSWIETLANIE I WRZUCANIE DO LISTY
                 line = myReader.nextLine();
                 String[] sasiedzi = line.split(" |:|'\n'|'\t'");

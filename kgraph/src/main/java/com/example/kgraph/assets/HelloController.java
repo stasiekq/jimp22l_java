@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -150,6 +149,9 @@ public class HelloController {
     @FXML
     public void openFile() {
         Grid f1 = ReadFile.czytajPlik();
-        Dijkstra.Iteracja(f1);
+        Sciezka doWykresu = Dijkstra.Algorytm(AdjacMat.Macierz(f1), 0, 6); // do uzupełnienia węzły początkowe i końcowe
+        System.out.println("//////////////"); // tutaj widzisz że działa
+        System.out.println(doWykresu.waga);
+        System.out.println(doWykresu.vertices);
     }
 }

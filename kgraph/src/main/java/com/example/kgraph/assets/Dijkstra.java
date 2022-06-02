@@ -1,108 +1,59 @@
 package com.example.kgraph.assets;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Dijkstra {
-    public static int Iteracja(Grid g) {
-        int skad = 0;
-        int dokad = 5;
-        System.out.println("iteracja");
+    static Sciezka trasa = new Sciezka();
 
-        if(g == null) {
-            ErrorsMgmt.awaria(2);
-            return 0;
-        }
+    static Sciezka Algorytm(Double[][] adjacMatrix, int skad, int dokad) {
 
-        int n = g.graf.size();
-        int tysiac = 0;
+        int n = adjacMatrix[0].length;
+        Double[] wagi = new Double[n];
+        boolean[] przerobione = new boolean[n];
+        int[] parents = new int[n];
 
-        double[][] macsas = new double [n][n];
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                macsas[i][j] = -1.0;
-            }
-        }
-
-        Vertex v = g.graf.get(0);
-        for (int i = 0; i < g.graf.size(); i++) {
-            for(int j = 0; j < g.graf.get(i).neighbours.size(); j++) {
-                macsas[g.graf.get(i).id][g.graf.get(i).neighbours.get(j)] = g.graf.get(i).weights.get(j);
-            }
-        }
-
-        double[] wagi = new double[n]; //d
-        int[] poprzednicy = new int[n]; //p
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             wagi[i] = Double.POSITIVE_INFINITY;
-            poprzednicy[i] = -1;
+            przerobione[i] = false;
         }
 
-        int[] nieodwiedzone = new int[n]; //Q
-        for(int i = 0; i < n; i++) {
-            nieodwiedzone[i] = 1;
-        }
-        wagi[skad] = 0;
-        nieodwiedzone[skad] = 0;
+        wagi[skad] = 0.0;
+        parents[skad] = -1;
 
-        boolean sanieodwiedzone = true;
+        for (int i = 1; i < n; i++) {
 
-        nieodwiedzone[skad] = 0;
-        wagi[skad] = 0;
-        int kursor = skad;
-
-        for(int i = 0; i < n; i++) { //sprawdzarka macierzy sasiedztwa
-            for(int j = 0; j < n; j++) {
-                System.out.print(macsas[i][j] + " ");
-            }
-            System.out.println();
-        }
-
-        while(sanieodwiedzone)
-        {
-            for(int i = 0; i < n; i++) {
-                if(macsas[kursor][i] != -1.0) {
-                    if(wagi[i] != -1.0) {
-                        System.out.println(i + " ");
-                        wagi[i] = wagi[kursor] + macsas[kursor][i];
-                        wagi[i] = -1;
-                    }
+            int d = -1;
+            Double najkrotszy = Double.POSITIVE_INFINITY;
+            for (int j = 0; j < n; j++) {
+                if (!przerobione[j] && wagi[j] < najkrotszy) {
+                    d = j;
+                    najkrotszy = wagi[j];
                 }
             }
-            double najm = Double.POSITIVE_INFINITY;
-            for(int i = 0; i < n; i++) {
-                if(nieodwiedzone[i] == 1) {
-                    if(wagi[i] < najm && wagi[i] != -1.0) {
-                        najm = wagi[i];
-                    }
-                }
-            }
-            for(int i = 0; i < n; i++) {
-                if(wagi[i] == najm) {
-                    kursor = i;
-                    nieodwiedzone[i] = 0;
-                }
-            }
+            przerobione[d] = true;
 
-            for(int i = 0; i < n; i++) {
-                if(nieodwiedzone[i] == 1) {
-                    sanieodwiedzone = true;
-                    tysiac++;
-                    break;
+            for (int j = 0; j < n; j++) {
+                Double krawedz = adjacMatrix[d][j];
+
+                if (krawedz > 0 && ((najkrotszy + krawedz) < wagi[j])) {
+                    parents[j] = d;
+                    wagi[j] = najkrotszy + krawedz;
                 }
-                else {
-                    sanieodwiedzone = false;
-                }
+            }
+            if(wagi[dokad] != Double.POSITIVE_INFINITY) {
+                break; // jak znajdzie do szukanego to konczy szukac innych
             }
         }
 
+        trasa.waga = wagi[dokad];
+        backParents(dokad, parents);
 
+        return trasa;
+    }
 
-        for(int i = 0; i < n; i++) {
-            System.out.print(wagi[i] + " ");
+    private static void backParents(int i, int[] parents) {
+        if (i == -1) {
+            return;
         }
-
-        return 0;
+        backParents(parents[i], parents);
+        trasa.vertices.add(i);
     }
 }
