@@ -3,10 +3,10 @@ package com.example.kgraph.assets;
 import java.util.ArrayList;
 
 public class Vertex {
-    private int id;
-    private ArrayList<Integer> neighbours = new ArrayList<Integer>();
-    private ArrayList<Double> weights = new ArrayList<Double>();
-    private static int vertNumber = 0;
+    int id;
+    ArrayList<Integer> neighbours = new ArrayList<Integer>();
+    ArrayList<Double> weights = new ArrayList<Double>();
+    private static int vertNumber = -1;
 
     public Vertex() {
         id = ++vertNumber;
@@ -20,12 +20,6 @@ public class Vertex {
         this.weights.add(d);
     }
 
-    /*public void getNeighbourWeights() {
-        for(int i = 0; i < this.neighbours.size(); i++)
-        {
-            System.out.println(neighbours[i]);
-        }
-    }*/
 
 
 }

@@ -9,6 +9,9 @@ public class ErrorsMgmt {
             case 1:
                 System.out.println("Niepoprawna zawartosc pliku.");
                 break;
+            case 2:
+                System.out.println("graf jest pusty");
+                break;
             default:
                 System.out.println("Nieznany blad");
         }

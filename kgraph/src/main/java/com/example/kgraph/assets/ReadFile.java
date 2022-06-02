@@ -31,8 +31,8 @@ public class ReadFile {
                 String[] sasiedzi = line.split(" |:|'\n'|'\t'");
                 Vertex v = new Vertex();
                 for (int i = 1; i < sasiedzi.length; i += 4) {
-                    System.out.println(sasiedzi[i]);
-                    System.out.println(sasiedzi[i + 2]);
+                    //System.out.println(sasiedzi[i]);
+                    //System.out.println(sasiedzi[i + 2]);
                     try {
                         v.addNeigh(Integer.parseInt(sasiedzi[i]));
                     } catch (NumberFormatException ex) {
@@ -44,7 +44,7 @@ public class ReadFile {
                         throw new RuntimeException(ex);
                     }
                 }
-                System.out.println("________");
+                //System.out.println("________");
                 g.addDimensions(v);
             }
         } catch (Exception e) {

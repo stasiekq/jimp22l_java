@@ -8,6 +8,8 @@ import com.example.kgraph.assets.*;
 
 import java.io.IOException;
 
+import static com.example.kgraph.assets.ReadFile.czytajPlik;
+
 public class HelloApplication extends Application
 {
     @Override

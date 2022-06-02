@@ -9,10 +9,4 @@ public class Grid {
         this.graf.add(v);
     }
 
-    /*public void Iterate() {
-        for(int i = 0; i < this.graf.size())
-        {
-            this.graf[i].
-        }
-    }*/
 }
