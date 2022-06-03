@@ -27,6 +27,8 @@ public class HelloController {
     @FXML
     public TextField txt_field4;
     @FXML
+    public TextField txt_field5;
+    @FXML
     public ToggleButton spojny;
     @FXML
     public ToggleButton niespojny;
@@ -46,104 +48,44 @@ public class HelloController {
 
     @FXML
     protected void generateGraph() {
-        final Stage primaryStage = new Stage();
-        PrintWriter writer;
+        boolean spojnosc;
         int wiersze;
         int kolumny;
         double dolna_granica;
         double gorna_granica;
-        double losowa;
-        String losowa2;
-        wiersze = Integer.parseInt(txt_field1.getText());
-        kolumny = Integer.parseInt(txt_field2.getText());
-        dolna_granica = Double.parseDouble(txt_field3.getText());
-        gorna_granica = Double.parseDouble(txt_field4.getText());
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-        fileChooser.getExtensionFilters().add(extFilter);
-        File file = fileChooser.showSaveDialog(primaryStage);
-        try {
-            writer = new PrintWriter(file);
-            writer.print(wiersze);
-            writer.print(" ");
-            writer.println(kolumny);
-            writer.print("\t");
-            if (spojny.isSelected() == true) {
-                for (int i = 0; i < wiersze * kolumny; i++) {
-
-                    if ((i + 1) % kolumny != 0) {
-                        losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
-                        losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
-                        writer.print(" " + (i + 1) + " :");
-                        writer.print(losowa2 + " ");
-                    }
-                    if (i % kolumny != 0) {
-                        losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
-                        losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
-                        writer.print(" " + (i - 1) + " :");
-                        writer.print(losowa2 + " ");
-                    }
-                    if (i >= kolumny) {
-                        losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
-                        losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
-                        writer.print(" " + (i - kolumny) + " :");
-                        writer.print(losowa2 + " ");
-                    }
-                    if (i < (wiersze - 1) * kolumny) {
-                        losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
-                        losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
-                        writer.print(" " + (i + kolumny) + " :");
-                        writer.print(losowa2 + " ");
-                    }
-                    if (i != wiersze * kolumny - 1) {
-                        writer.print("\n\t");
-                    } else writer.print("\n");
-                }
-            } else {
-                for (int i = 0; i < wiersze * kolumny; i++) {
-                    if ((i + 1) % kolumny != 0) {
-                        if (i + 1 == wiersze * kolumny - 1) {
-                            //writer.print(" " + (i + 1) + " :");
-                            //writer.print("-1.000000 ");
-                        } else {
-                            losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
-                            losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
-                            writer.print(" " + (i + 1) + " :");
-                            writer.print(losowa2 + " ");
-                        }
-                    }
-                    if (i % kolumny != 0) {
-                        losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
-                        losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
-                        writer.print(" " + (i - 1) + " :");
-                        writer.print(losowa2 + " ");
-                    }
-                    if (i >= kolumny) {
-                        losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
-                        losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
-                        writer.print(" " + (i - kolumny) + " :");
-                        writer.print(losowa2 + " ");
-                    }
-                    if (i < (wiersze - 1) * kolumny) {
-                        if (i + kolumny == wiersze * kolumny - 1) {
-                            //writer.print(" " + (i + kolumny) + " :");
-                            //writer.print("-1.000000 ");
-                        } else {
-                            losowa = ThreadLocalRandom.current().nextDouble(dolna_granica, gorna_granica);
-                            losowa2 = Double.toString(BigDecimal.valueOf(losowa).setScale(6, RoundingMode.HALF_EVEN).doubleValue());
-                            writer.print(" " + (i + kolumny) + " :");
-                            writer.print(losowa2 + " ");
-                        }
-                    }
-                    if (i != wiersze * kolumny - 1) {
-                        writer.print("\n\t");
-                    } else writer.print("\n\t");
-                }
-            }
-            writer.close();
-        } catch (IOException ex) {
-            System.out.println("Coś się nie powiodło");
+        String nazwa_pliku;
+        if (spojny.isSelected())
+        {
+            spojnosc = true;
         }
+        else spojnosc = false;
+        if (txt_field1.getText() == null || txt_field1.getText() == "")
+        {
+            wiersze = 5;
+        }
+        else wiersze = Integer.parseInt(txt_field1.getText());
+        if (txt_field2.getText() == null || txt_field2.getText() == "")
+        {
+            kolumny = 5;
+        }
+        else kolumny = Integer.parseInt(txt_field2.getText());
+        if (txt_field3.getText() == null || txt_field3.getText() == "")
+        {
+            dolna_granica = 1.0;
+        }
+        else dolna_granica = Double.parseDouble(txt_field3.getText());
+        if (txt_field4.getText() == null || txt_field4.getText() == "")
+        {
+            gorna_granica = dolna_granica + 1;
+        }
+        else gorna_granica = Double.parseDouble(txt_field4.getText());
+        if (txt_field5.getText() == null || txt_field5.getText() == "")
+        {
+            nazwa_pliku = "przykladowy_graf";
+        }
+        else nazwa_pliku = txt_field5.getText();
+        Generator G1 = new Generator();
+        G1.generateGraph(wiersze, kolumny, dolna_granica, gorna_granica, spojnosc, nazwa_pliku);
     }
 
     @FXML
