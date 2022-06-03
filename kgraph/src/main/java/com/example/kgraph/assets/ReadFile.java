@@ -23,6 +23,11 @@ public class ReadFile {
             return null;
         }
 
+        if(plik == null) {
+            ErrorsMgmt.awaria(1);
+            return null;
+        }
+
         try {
             Scanner myReader = new Scanner(plik);
             String line = myReader.nextLine();

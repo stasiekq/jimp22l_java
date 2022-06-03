@@ -149,7 +149,13 @@ public class HelloController {
     @FXML
     public void openFile() {
         Grid f1 = ReadFile.czytajPlik();
-        Sciezka doWykresu = Dijkstra.Algorytm(AdjacMat.Macierz(f1), 0, 8); // do uzupełnienia węzły początkowe i końcowe
+        Sciezka doWykresu = null;
+
+        if(f1 != null) {
+            Bfs.Algorytm(AdjacMat.Macierz(f1));
+        }
+        doWykresu = Dijkstra.Algorytm(AdjacMat.Macierz(f1), 0, 8); // do uzupełnienia węzły początkowe i końcowe
+
         System.out.println("//////////////"); // tutaj widzisz że działa
         if (doWykresu != null) {
             System.out.println(doWykresu.waga);
