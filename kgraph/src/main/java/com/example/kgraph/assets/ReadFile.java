@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 
 public class ReadFile {
 
+    static int rows;
+    int columns;
+
     public static Grid czytajPlik() {
         final Stage openFile = new Stage();
         FileChooser fileChooser = new FileChooser();
