@@ -7,7 +7,7 @@ import java.util.List;
 public class Bfs {
     public static boolean Algorytm(Double[][] adjacMat) {
 
-        if(adjacMat == null) {
+        if (adjacMat == null) {
             return false;
         }
 
@@ -40,8 +40,7 @@ public class Bfs {
             if (!odwiedzone[i]) {
                 System.out.println("NIESPOJNY");
                 return false;
-            }
-            else if(i == n-1) {
+            } else if (i == n - 1) {
                 System.out.println("SPOJNY");
                 return true;
             }

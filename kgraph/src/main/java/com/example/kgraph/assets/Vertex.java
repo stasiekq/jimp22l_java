@@ -6,10 +6,9 @@ public class Vertex {
     int id;
     ArrayList<Integer> neighbours = new ArrayList<Integer>();
     ArrayList<Double> weights = new ArrayList<Double>();
-    private static int vertNumber = -1;
 
-    public Vertex() {
-        id = ++vertNumber;
+    public Vertex(int id) {
+        this.id = id;
     }
 
     public void addNeigh(int i) {
@@ -19,7 +18,4 @@ public class Vertex {
     public void addWeight(Double d) {
         this.weights.add(d);
     }
-
-
-
 }

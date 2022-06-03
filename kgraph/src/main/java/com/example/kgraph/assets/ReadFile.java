@@ -23,7 +23,7 @@ public class ReadFile {
             return null;
         }
 
-        if(plik == null) {
+        if (plik == null) {
             ErrorsMgmt.awaria(1);
             return null;
         }
@@ -32,13 +32,16 @@ public class ReadFile {
             Scanner myReader = new Scanner(plik);
             String line = myReader.nextLine();
             String[] wymiary = line.split(" ", 0);
+
             int rows = Integer.parseInt(wymiary[0]);
             int columns = Integer.parseInt(wymiary[1]);
+            int linijka = 0;
 
             while (myReader.hasNextLine()) { // WYSWIETLANIE I WRZUCANIE DO LISTY
                 line = myReader.nextLine();
                 String[] sasiedzi = line.split(" |:|'\n'|'\t'");
-                Vertex v = new Vertex();
+                Vertex v = new Vertex(linijka);
+                linijka++;
                 for (int i = 1; i < sasiedzi.length; i += 4) {
                     //System.out.println(sasiedzi[i]);
                     //System.out.println(sasiedzi[i + 2]);
