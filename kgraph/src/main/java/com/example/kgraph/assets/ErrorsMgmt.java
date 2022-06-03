@@ -10,10 +10,10 @@ public class ErrorsMgmt {
                 System.out.println("Niepoprawna zawartosc pliku.");
                 break;
             case 2:
-                System.out.println("graf jest pusty");
+                System.out.println("Graf jest pusty.");
                 break;
             case 3:
-                System.out.println("Niepoprawne dane dla algorytmu Dijkstry");
+                System.out.println("Niepoprawne dane dla algorytmu Dijkstry. Liczby wykraczaja poza dozwolony zakres.");
                 break;
             case 4:
                 System.out.println("Niepoprawne dane dla algorytmu Dijkstry. Graf niespojny.");

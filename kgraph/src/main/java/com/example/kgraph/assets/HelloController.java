@@ -155,6 +155,6 @@ public class HelloController {
             System.out.println(doWykresu.waga);
             System.out.println(doWykresu.vertices);
         }
-        else System.out.println("Nie udalo sie stworzyc sciezki.");
+        else System.out.println("Program: Nie udalo sie stworzyc sciezki.");
     }
 }

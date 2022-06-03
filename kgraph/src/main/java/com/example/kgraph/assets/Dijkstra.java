@@ -5,6 +5,9 @@ public class Dijkstra {
 
     static Sciezka Algorytm(Double[][] adjacMatrix, int skad, int dokad) {
 
+        if(adjacMatrix == null) {
+            return null;
+        }
 
         int n = adjacMatrix[0].length;
         if(skad < 0 || skad > n || dokad < 0 || dokad > n) {
@@ -53,8 +56,6 @@ public class Dijkstra {
             ErrorsMgmt.awaria(3);
             return null;
         }
-
-
 
         trasa.waga = wagi[dokad];
         backParents(dokad, parents);

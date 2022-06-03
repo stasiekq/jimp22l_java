@@ -5,7 +5,6 @@ public class AdjacMat {
     public static Double[][] Macierz(Grid g) {
 
         if (g == null) {
-            ErrorsMgmt.awaria(2);
             return null;
         }
 
