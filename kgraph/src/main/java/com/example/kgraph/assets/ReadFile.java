@@ -53,7 +53,6 @@ public class ReadFile {
                         throw new RuntimeException(ex);
                     }
                 }
-                //System.out.println("________");
                 g.addDimensions(v);
             }
         } catch (Exception e) {
@@ -62,5 +61,4 @@ public class ReadFile {
         }
         return g;
     }
-
 }

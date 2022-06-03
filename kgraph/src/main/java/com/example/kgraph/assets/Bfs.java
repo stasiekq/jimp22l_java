@@ -34,7 +34,7 @@ public class Bfs {
                 }
             }
         } catch (Exception ex) {
-            System.out.println("SSS");
+            System.out.println("bfs");
         }
         for (int i = 0; i < n; i++) {
             if (!odwiedzone[i]) {
@@ -46,7 +46,6 @@ public class Bfs {
                 return true;
             }
         }
-
         return true;
     }
 }
