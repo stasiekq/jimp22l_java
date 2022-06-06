@@ -4,15 +4,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.TextField;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 public class HelloController {
@@ -32,11 +29,47 @@ public class HelloController {
     public ToggleButton spojny;
     @FXML
     public ToggleButton niespojny;
+    @FXML
+    public Canvas can;
+
+    final int max = 400;
+    int srednica;
+    double coordinateX;
+    double coordinateY;
+    GraphicsContext canvas;
+
+    Grid g = new Grid();
 
     @FXML
     protected void chooseCoherent() {
         niespojny.setSelected(false);
         spojny.setSelected(true);
+    }
+    public void wyswietlGraf(Grid g)
+    {
+        canvas = can.getGraphicsContext2D();
+        clearCanvas(canvas, can);
+        srednica = 60;
+        coordinateY = 0 + srednica / 2;
+
+        while (srednica * g.columns * 2 >= max || srednica * g.rows * 2 >= max) {
+            srednica /= 1.5;
+        }
+
+        for (int i = 0; i < g.rows; i++) {
+            coordinateY += srednica * 2;
+            coordinateX = 0 + srednica / 2;
+            for (int j = 0; j < g.columns; j++) {
+                canvas.setFill(Color.BLUE);
+                canvas.fillOval(coordinateX, coordinateY, srednica, srednica);
+
+                coordinateX += srednica * 2;
+            }
+        }
+    }
+
+    public void clearCanvas(GraphicsContext gc, Canvas cv) {
+        gc.clearRect(0, 0, cv.getWidth(), cv.getHeight());
     }
 
     @FXML
@@ -90,11 +123,19 @@ public class HelloController {
 
     @FXML
     public void openFile() {
-        Grid f1 = ReadFile.czytajPlik();
+        boolean czySpojny = true;
+        g = ReadFile.czytajPlik();
 
-        if(f1 != null) {
-            Bfs.Algorytm(AdjacMat.Macierz(f1));
+        if(g != null) {
+            czySpojny = Bfs.Algorytm(AdjacMat.Macierz(g));
         }
+        else return;
+        if (czySpojny == true)
+        {
+            wyswietlGraf(g);
+        }
+        else return;
+        /*
         Sciezka doWykresu = Dijkstra.Algorytm(AdjacMat.Macierz(f1), 0, 8); // do uzupełnienia węzły początkowe i końcowe
 
         System.out.println("//////////////"); // tutaj widzisz że działa
@@ -103,5 +144,69 @@ public class HelloController {
             System.out.println(doWykresu.vertices);
         }
         else System.out.println("Program: Nie udalo sie stworzyc sciezki.");
+         */
+    }
+
+    int clickedPoints = 0;
+    /*
+    @FXML
+    public void rozpoczecieRys(MouseEvent mouseEvent, Grid g) throws IOException {
+        //savedPathClicked = false;
+        double mouseX = mouseEvent.getX();
+        double mouseY = mouseEvent.getY();
+        clickedPoints++;
+
+        int point = 0;
+        coordinateY = 0 + srednica / 2;
+
+        for (int i = 0; i < g.columns * g.rows; i++) {
+            coordinateY += srednica * 2;
+            coordinateX = 0 + srednica / 2;
+            if ((mouseX >= coordinateX && mouseX <= coordinateX + srednica) && (mouseY >= coordinateY && mouseY <= coordinateY + srednica)) {
+                point = i;
+                if (clickedPoints % 2 == 1) {
+                    //numPath++;
+                    //clearPath();
+                    canvas.setStroke(Color.RED);
+                    canvas.strokeOval(coordinateX, coordinateY, srednica, srednica);
+                } else if (clickedPoints % 2 == 0) {
+                    canvas.setStroke(Color.RED);
+                    canvas.strokeOval(coordinateX, coordinateY, srednica, srednica);
+                    //chooseModeAnalyzer();
+                }
+            }
+        }
+
+    }
+
+     */
+
+    public void rozpoczecieRys(MouseEvent mouseEvent) throws IOException {
+        //savedPathClicked = false;
+        double mouseX = mouseEvent.getX();
+        double mouseY = mouseEvent.getY();
+        clickedPoints++;
+
+        coordinateY = 0 + srednica / 2;
+
+        for (int i = 0; i < g.rows; i++) {
+            coordinateY += srednica * 2;
+            coordinateX = 0 + srednica / 2;
+            for (int j = 0; j < g.columns; j++) {
+                if ((mouseX >= coordinateX && mouseX <= coordinateX + srednica) && (mouseY >= coordinateY && mouseY <= coordinateY + srednica)) {
+                    if (clickedPoints % 2 == 1) {
+                        //numPath++;
+                        //clearPath();
+                        canvas.setStroke(Color.BLACK);
+                        canvas.strokeOval(coordinateX, coordinateY + srednica/2, srednica, srednica);
+                    } else if (clickedPoints % 2 == 0) {
+                        canvas.setStroke(Color.BLACK);
+                        canvas.strokeOval(coordinateX, coordinateY + srednica/2, srednica, srednica);
+                        //chooseModeAnalyzer();
+                    }
+                }
+                coordinateX += srednica * 2;
+            }
+        }
     }
 }

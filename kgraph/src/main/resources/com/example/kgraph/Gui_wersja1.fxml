@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
 
-<Pane fx:id="gui_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="555.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kgraph.assets.HelloController">
+<Pane fx:id="gui_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kgraph.assets.HelloController">
    <children>
-      <TextField fx:id="txt_field3" layoutX="38.0" layoutY="121.0" prefHeight="25.0" prefWidth="80.0" />
-      <TextField fx:id="txt_field4" layoutX="136.0" layoutY="121.0" prefHeight="25.0" prefWidth="80.0" />
-      <TextField fx:id="txt_field5" layoutX="38.0" layoutY="157.0" prefHeight="25.0" prefWidth="178.0" />
-      <RadioButton fx:id="spojny" layoutX="38.0" layoutY="200.0" mnemonicParsing="false" onAction="#chooseCoherent" prefHeight="17.0" prefWidth="80.0" selected="true" text="Spójny" />
-      <TextField fx:id="txt_field1" layoutX="38.0" layoutY="82.0" prefHeight="25.0" prefWidth="80.0" />
-      <TextField fx:id="txt_field2" layoutX="136.0" layoutY="82.0" prefHeight="25.0" prefWidth="80.0" />
-      <RadioButton fx:id="niespojny" layoutX="136.0" layoutY="200.0" mnemonicParsing="false" onAction="#chooseIncoherent" prefHeight="17.0" prefWidth="80.0" text="Niespójny" />
-      <Button fx:id="gen_but" layoutX="101.0" layoutY="228.0" mnemonicParsing="false" onAction="#generateGraph" text="Generate" />
-      <Button fx:id="op_but" layoutX="367.0" layoutY="228.0" mnemonicParsing="false" onAction="#openFile" prefHeight="25.0" prefWidth="64.0" text="Open" />
+      <TextField fx:id="txt_field3" layoutX="39.0" layoutY="240.0" prefHeight="25.0" prefWidth="80.0" />
+      <TextField fx:id="txt_field4" layoutX="139.0" layoutY="240.0" prefHeight="25.0" prefWidth="80.0" />
+      <TextField fx:id="txt_field5" layoutX="41.0" layoutY="298.0" prefHeight="25.0" prefWidth="178.0" />
+      <RadioButton fx:id="spojny" layoutX="41.0" layoutY="338.0" mnemonicParsing="false" onAction="#chooseCoherent" prefHeight="17.0" prefWidth="80.0" selected="true" text="Spójny" />
+      <TextField fx:id="txt_field1" layoutX="39.0" layoutY="189.0" prefHeight="25.0" prefWidth="80.0" />
+      <TextField fx:id="txt_field2" layoutX="139.0" layoutY="189.0" prefHeight="25.0" prefWidth="80.0" />
+      <RadioButton fx:id="niespojny" layoutX="139.0" layoutY="338.0" mnemonicParsing="false" onAction="#chooseIncoherent" prefHeight="17.0" prefWidth="80.0" text="Niespójny" />
+      <Button fx:id="gen_but" layoutX="98.0" layoutY="373.0" mnemonicParsing="false" onAction="#generateGraph" text="Generate" />
+      <Button fx:id="op_but" layoutX="369.0" layoutY="508.0" mnemonicParsing="false" onMouseClicked="#openFile" prefHeight="25.0" prefWidth="64.0" text="Open" />
+      <Button fx:id="cl_but" layoutX="483.0" layoutY="508.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Erase" />
+      <TextField fx:id="txt_field6" layoutX="369.0" layoutY="432.0" prefHeight="25.0" prefWidth="178.0" />
+      <Label layoutX="41.0" layoutY="281.0" prefHeight="17.0" prefWidth="178.0" text="Nazwa pliku" />
+      <Label layoutX="39.0" layoutY="223.0" prefHeight="17.0" prefWidth="80.0" text="Dolna granica" />
+      <Label layoutX="139.0" layoutY="223.0" prefHeight="17.0" prefWidth="80.0" text="Górna granica" />
+      <Label layoutX="42.0" layoutY="172.0" prefHeight="17.0" prefWidth="80.0" text="Wiersze" />
+      <Label layoutX="139.0" layoutY="172.0" prefHeight="17.0" prefWidth="80.0" text="Kolumny" />
+      <Canvas fx:id="can" height="400.0" layoutX="258.0" layoutY="23.0" onMouseClicked="#rozpoczecieRys" width="400.0" />
+      <TextField fx:id="txt_field7" layoutX="369.0" layoutY="469.0" prefHeight="25.0" prefWidth="80.0" />
+      <TextField fx:id="txt_field8" layoutX="467.0" layoutY="469.0" prefHeight="25.0" prefWidth="80.0" />
+      <Line endX="-35.999969482421875" endY="366.0" layoutX="294.0" layoutY="57.0" startX="-35.999969482421875" startY="-34.0" />
+      <Line endX="299.0" endY="-1.0" layoutX="359.0" layoutY="424.0" startX="-100.0" />
+      <Line endX="298.0" endY="1.9073486328125E-6" layoutX="360.0" layoutY="23.0" startX="-100.0" />
+      <Line endX="-99.29296875" endY="398.2928771972656" layoutX="758.0" layoutY="24.0" startX="-100.0" />
    </children>
 </Pane>

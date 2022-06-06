@@ -16,8 +16,8 @@ public class ReadFile {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
         fileChooser.getExtensionFilters().add(extFilter);
-        Grid g = new Grid();
         File plik = fileChooser.showOpenDialog(openFile);
+        Grid g = new Grid();
         if (!String.valueOf(plik).substring(String.valueOf(plik).length() - 3).equals("txt")) {
             ErrorsMgmt.awaria(0);
             return null;
@@ -32,11 +32,11 @@ public class ReadFile {
             Scanner myReader = new Scanner(plik);
             String line = myReader.nextLine();
             String[] wymiary = line.split(" ", 0);
-
             int rows = Integer.parseInt(wymiary[0]);
             int columns = Integer.parseInt(wymiary[1]);
             int linijka = 0;
-
+            g.rows = rows;
+            g.columns = columns;
             while (myReader.hasNextLine()) { // WYSWIETLANIE I WRZUCANIE DO LISTY
                 line = myReader.nextLine();
                 String[] sasiedzi = line.split(" |:|'\n'|'\t'");
