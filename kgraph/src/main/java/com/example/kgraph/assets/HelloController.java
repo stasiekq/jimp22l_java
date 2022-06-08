@@ -1,5 +1,6 @@
 package com.example.kgraph.assets;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
@@ -13,6 +14,17 @@ import java.io.IOException;
 
 
 public class HelloController {
+
+
+    @FXML
+    public TextField txt_field6;
+
+    @FXML
+    public TextField txt_field7;
+
+
+    @FXML
+    public TextField txt_field8;
     @FXML
     private Button gen_but;
     @FXML
@@ -45,11 +57,12 @@ public class HelloController {
         niespojny.setSelected(false);
         spojny.setSelected(true);
     }
+
     double[] kordyX = new double[100 * 100];
 
     double[] kordyY = new double[100 * 100];
-    public void wyswietlGraf(Grid g)
-    {
+
+    public void wyswietlGraf(Grid g) {
         int licznik = 0;
         canvas = can.getGraphicsContext2D();
         clearCanvas(canvas, can);
@@ -85,6 +98,46 @@ public class HelloController {
         spojny.setSelected(false);
     }
 
+    @FXML
+
+    public void dijkBut(ActionEvent actionEvent) {
+
+        if (g != null) {
+
+
+            int skad = 0;
+            int dokad = 8;
+
+
+            if (txt_field7.getText() == null || txt_field7.getText() == "") {
+                skad = 0;
+            } else {
+
+                skad = Integer.parseInt(txt_field7.getText());
+            }
+            if (txt_field8.getText() == null || txt_field8.getText() == "") {
+                dokad = 8;
+            } else {
+                dokad = Integer.parseInt(txt_field8.getText());
+            }
+            try {
+
+
+                Sciezka doWykresu = Dijkstra.Algorytm(AdjacMat.Macierz(g), skad, dokad);
+
+                if (doWykresu != null) {
+                    txt_field6.setText("Dlugosc trasy: " + String.format("%.4f", doWykresu.waga));
+                } else {
+                    txt_field6.setText("Dane do dijkstry poza zakresem.");
+                }
+
+                txt_field7.setText(String.valueOf(skad));
+                txt_field8.setText(String.valueOf(dokad));
+            } catch (Exception e) {
+                ErrorsMgmt.awaria(0);
+            }
+        }
+    }
 
     @FXML
     protected void generateGraph() {
@@ -94,36 +147,25 @@ public class HelloController {
         double dolna_granica;
         double gorna_granica;
         String nazwa_pliku;
-        if (spojny.isSelected())
-        {
+
+        if (spojny.isSelected()) {
             spojnosc = true;
-        }
-        else spojnosc = false;
-        if (txt_field1.getText() == null || txt_field1.getText() == "")
-        {
+        } else spojnosc = false;
+        if (txt_field1.getText() == null || txt_field1.getText() == "") {
             wiersze = 5;
-        }
-        else wiersze = Integer.parseInt(txt_field1.getText());
-        if (txt_field2.getText() == null || txt_field2.getText() == "")
-        {
+        } else wiersze = Integer.parseInt(txt_field1.getText());
+        if (txt_field2.getText() == null || txt_field2.getText() == "") {
             kolumny = 5;
-        }
-        else kolumny = Integer.parseInt(txt_field2.getText());
-        if (txt_field3.getText() == null || txt_field3.getText() == "")
-        {
+        } else kolumny = Integer.parseInt(txt_field2.getText());
+        if (txt_field3.getText() == null || txt_field3.getText() == "") {
             dolna_granica = 1.0;
-        }
-        else dolna_granica = Double.parseDouble(txt_field3.getText());
-        if (txt_field4.getText() == null || txt_field4.getText() == "")
-        {
+        } else dolna_granica = Double.parseDouble(txt_field3.getText());
+        if (txt_field4.getText() == null || txt_field4.getText() == "") {
             gorna_granica = dolna_granica + 1;
-        }
-        else gorna_granica = Double.parseDouble(txt_field4.getText());
-        if (txt_field5.getText() == null || txt_field5.getText() == "")
-        {
-            nazwa_pliku = "przykladowy_graf";
-        }
-        else nazwa_pliku = txt_field5.getText();
+        } else gorna_granica = Double.parseDouble(txt_field4.getText());
+        if (txt_field5.getText() == null || txt_field5.getText() == "") {
+            nazwa_pliku = "nowy_graf";
+        } else nazwa_pliku = txt_field5.getText();
         Generator G1 = new Generator();
         G1.generateGraph(wiersze, kolumny, dolna_granica, gorna_granica, spojnosc, nazwa_pliku);
     }
@@ -133,29 +175,32 @@ public class HelloController {
         boolean czySpojny = true;
         g = ReadFile.czytajPlik();
 
-        if(g != null) {
+        if (g != null) {
             czySpojny = Bfs.Algorytm(AdjacMat.Macierz(g));
             czySpojny = Dfs.Algorytm(0, AdjacMat.Macierz(g));
-        }
-        else return;
-        if (czySpojny == true)
-        {
+        } else return;
+        if (czySpojny == true) {
             wyswietlGraf(g);
-        }
-        else return;
-        ///*
-        Sciezka doWykresu = Dijkstra.Algorytm(AdjacMat.Macierz(g), 0, 8); // do uzupełnienia węzły początkowe i końcowe
+        } else return;
+
+        int skad = 0;
+        int dokad = 8;
+        Sciezka doWykresu = Dijkstra.Algorytm(AdjacMat.Macierz(g), skad, dokad); // do uzupełnienia węzły początkowe i końcowe
 
         //System.out.println("//////////////"); // tutaj widzisz że działa
         if (doWykresu != null) {
+
             System.out.println(doWykresu.waga);
             System.out.println(doWykresu.vertices);
-        }
-        else System.out.println("Program: Nie udalo sie stworzyc sciezki.");
+            txt_field6.setText("Dlugosc trasy: " + String.format("%.4f", doWykresu.waga));
+            txt_field7.setText(String.valueOf(skad));
+            txt_field8.setText(String.valueOf(dokad));
+        } else System.out.println("Program: Nie udalo sie stworzyc sciezki.");
         //*/
     }
 
     int clickedPoints = 0;
+
     /*
     @FXML
     public void rozpoczecieRys(MouseEvent mouseEvent, Grid g) throws IOException {
@@ -187,10 +232,9 @@ public class HelloController {
 
     }
      */
-    public void uruchomDijsktra(int pierwszy, int ostatni){
+    public void uruchomDijsktra(int pierwszy, int ostatni) {
         Sciezka doWykresu = Dijkstra.Algorytm(AdjacMat.Macierz(g), pierwszy, ostatni);
-        for(int i = 0; i < doWykresu.vertices.size(); i++)
-        {
+        for (int i = 0; i < doWykresu.vertices.size(); i++) {
             System.out.println("Wezel " + i + " " + doWykresu.vertices.get(i));
         }
         canvas.setStroke(Color.INDIANRED);
@@ -208,9 +252,9 @@ public class HelloController {
                     } else if (doWykresu.vertices.get(licznikSciezka) == doWykresu.vertices.get(licznikSciezka + 1) - 1) {
                         canvas.strokeLine(kordyX[doWykresu.vertices.get(licznikSciezka)], kordyY[doWykresu.vertices.get(licznikSciezka)] + srednica / 2, kordyX[doWykresu.vertices.get(licznikSciezka)] - srednica, kordyY[doWykresu.vertices.get(licznikSciezka)] + srednica / 2);
                     } else if (doWykresu.vertices.get(licznikSciezka) == doWykresu.vertices.get(licznikSciezka + 1) - g.columns) {
-                        canvas.strokeLine(kordyX[doWykresu.vertices.get(licznikSciezka)] + srednica / 2, kordyY[doWykresu.vertices.get(licznikSciezka)], kordyX[doWykresu.vertices.get(licznikSciezka)] + srednica / 2, kordyY[doWykresu.vertices.get(licznikSciezka)] - srednica);
+                        canvas.strokeLine(kordyX[doWykresu.vertices.get(licznikSciezka)] + srednica / 2, kordyY[doWykresu.vertices.get(licznikSciezka)], kordyX[doWykresu.vertices.get(licznikSciezka)] + srednica / 2, kordyY[doWykresu.vertices.get(licznikSciezka)] + srednica);
                     } else if (doWykresu.vertices.get(licznikSciezka) == doWykresu.vertices.get(licznikSciezka + 1) + g.columns) {
-                        canvas.strokeLine(kordyX[doWykresu.vertices.get(licznikSciezka)] + srednica / 2, kordyY[doWykresu.vertices.get(licznikSciezka)], kordyX[doWykresu.vertices.get(licznikSciezka)] + srednica / 2, kordyY[doWykresu.vertices.get(licznikSciezka)] + srednica * 2);
+                        canvas.strokeLine(kordyX[doWykresu.vertices.get(licznikSciezka)] + srednica / 2, kordyY[doWykresu.vertices.get(licznikSciezka)], kordyX[doWykresu.vertices.get(licznikSciezka)] + srednica / 2, kordyY[doWykresu.vertices.get(licznikSciezka)] - srednica * 2);
                     }
                     licznikSciezka++;
                 }
@@ -236,17 +280,17 @@ public class HelloController {
             coordinateY += srednica * 2;
             coordinateX = 0 + srednica / 2;
             for (int j = 0; j < g.columns; j++) {
-                if ((mouseX >= coordinateX && mouseX <= coordinateX + srednica) && (mouseY >= coordinateY && mouseY <= coordinateY + srednica*2)) {
+                if ((mouseX >= coordinateX && mouseX <= coordinateX + srednica) && (mouseY >= coordinateY && mouseY <= coordinateY + srednica * 2)) {
                     if (clickedPoints % 2 == 1) {
                         //numPath++;
                         //clearPath(); // TRZEBA DODAĆ USUWANIE ŚCIEŻEK
                         pierwszy = licznik;
                         canvas.setStroke(Color.BLACK);
-                        canvas.strokeOval(coordinateX, coordinateY + srednica/(1.5), srednica, srednica);
+                        canvas.strokeOval(coordinateX, coordinateY + srednica / (1.5), srednica, srednica);
                     } else if (clickedPoints % 2 == 0) {
                         ostatni = licznik;
                         canvas.setStroke(Color.BLACK);
-                        canvas.strokeOval(coordinateX, coordinateY + srednica/(1.5), srednica, srednica);
+                        canvas.strokeOval(coordinateX, coordinateY + srednica / (1.5), srednica, srednica);
                         uruchomDijsktra(pierwszy, ostatni);
                     }
                 }
@@ -255,4 +299,5 @@ public class HelloController {
             }
         }
     }
+
 }

@@ -5,6 +5,8 @@ public class Dijkstra {
 
     static Sciezka Algorytm(Double[][] adjacMatrix, int skad, int dokad) {
 
+        trasa.vertices.clear();
+
         if(adjacMatrix == null) {
             return null;
         }

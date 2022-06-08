@@ -19,7 +19,7 @@
       <RadioButton fx:id="niespojny" layoutX="139.0" layoutY="338.0" mnemonicParsing="false" onAction="#chooseIncoherent" prefHeight="17.0" prefWidth="80.0" text="Niespójny" />
       <Button fx:id="gen_but" layoutX="98.0" layoutY="373.0" mnemonicParsing="false" onAction="#generateGraph" text="Generate" />
       <Button fx:id="op_but" layoutX="369.0" layoutY="508.0" mnemonicParsing="false" onMouseClicked="#openFile" prefHeight="25.0" prefWidth="64.0" text="Open" />
-      <Button fx:id="cl_but" layoutX="483.0" layoutY="508.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Erase" />
+      <Button fx:id="cl_but" layoutX="483.0" layoutY="508.0" mnemonicParsing="false" onAction="#dijkBut" prefHeight="25.0" prefWidth="64.0" text="Dijkstra" />
       <TextField fx:id="txt_field6" layoutX="369.0" layoutY="432.0" prefHeight="25.0" prefWidth="178.0" />
       <Label layoutX="41.0" layoutY="281.0" prefHeight="17.0" prefWidth="178.0" text="Nazwa pliku" />
       <Label layoutX="39.0" layoutY="223.0" prefHeight="17.0" prefWidth="80.0" text="Dolna granica" />

@@ -32,11 +32,11 @@ public class Dfs {
             }
         }
 
-        System.out.print("Stos z wierzcholka " + source + ": ");
+        //System.out.print("DFS: Stos z wierzcholka " + source + ": ");
         int licznik = 0;
         for (int j = 0; j < n; j++) {
             if (odwiedzone[j] == true) {
-                System.out.print(j + " ");
+                //System.out.print(j + " ");
                 licznik++;
             }
         }

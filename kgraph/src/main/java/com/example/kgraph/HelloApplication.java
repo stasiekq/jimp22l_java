@@ -17,7 +17,7 @@ public class HelloApplication extends Application
     {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Gui_wersja1.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 700, 700);
-        stage.setTitle("Zupa Romana!");
+        stage.setTitle("Kgraf 2");
         stage.setScene(scene);
         stage.show();
     }
