@@ -1,7 +1,6 @@
 package com.example.kgraph.assets;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Bfs {
@@ -14,7 +13,6 @@ public class Bfs {
         int n = adjacMat.length;
 
         boolean odwiedzone[] = new boolean[n];
-        Arrays.fill(odwiedzone, false);
 
         List<Integer> q = new ArrayList<Integer>();
 
@@ -38,10 +36,10 @@ public class Bfs {
         }
         for (int i = 0; i < n; i++) {
             if (!odwiedzone[i]) {
-                System.out.println("NIESPOJNY");
+                System.out.println("BFS: NIESPOJNY");
                 return false;
             } else if (i == n - 1) {
-                System.out.println("SPOJNY");
+                System.out.println("BFS: SPOJNY");
                 return true;
             }
         }

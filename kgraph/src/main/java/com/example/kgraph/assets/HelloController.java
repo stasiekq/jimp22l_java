@@ -135,6 +135,7 @@ public class HelloController {
 
         if(g != null) {
             czySpojny = Bfs.Algorytm(AdjacMat.Macierz(g));
+            czySpojny = Dfs.Algorytm(0, AdjacMat.Macierz(g));
         }
         else return;
         if (czySpojny == true)
@@ -142,16 +143,16 @@ public class HelloController {
             wyswietlGraf(g);
         }
         else return;
-        /*
-        Sciezka doWykresu = Dijkstra.Algorytm(AdjacMat.Macierz(f1), 0, 8); // do uzupełnienia węzły początkowe i końcowe
+        ///*
+        Sciezka doWykresu = Dijkstra.Algorytm(AdjacMat.Macierz(g), 0, 8); // do uzupełnienia węzły początkowe i końcowe
 
-        System.out.println("//////////////"); // tutaj widzisz że działa
+        //System.out.println("//////////////"); // tutaj widzisz że działa
         if (doWykresu != null) {
             System.out.println(doWykresu.waga);
             System.out.println(doWykresu.vertices);
         }
         else System.out.println("Program: Nie udalo sie stworzyc sciezki.");
-         */
+        //*/
     }
 
     int clickedPoints = 0;
