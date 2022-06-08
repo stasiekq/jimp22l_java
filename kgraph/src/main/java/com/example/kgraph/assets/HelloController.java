@@ -45,8 +45,12 @@ public class HelloController {
         niespojny.setSelected(false);
         spojny.setSelected(true);
     }
+    double[] kordyX = new double[100 * 100];
+
+    double[] kordyY = new double[100 * 100];
     public void wyswietlGraf(Grid g)
     {
+        int licznik = 0;
         canvas = can.getGraphicsContext2D();
         clearCanvas(canvas, can);
         srednica = 60;
@@ -59,11 +63,14 @@ public class HelloController {
         for (int i = 0; i < g.rows; i++) {
             coordinateY += srednica * 2;
             coordinateX = 0 + srednica / 2;
-            for (int j = 0; j < g.columns; j++) {
-                canvas.setFill(Color.BLUE);
-                canvas.fillOval(coordinateX, coordinateY, srednica, srednica);
 
+            for (int j = 0; j < g.columns; j++) {
+                canvas.setFill(Color.LIGHTBLUE);
+                canvas.fillOval(coordinateX, coordinateY, srednica, srednica);
                 coordinateX += srednica * 2;
+                kordyY[licznik] = coordinateY;
+                kordyX[licznik] = coordinateX;
+                licznik++;
             }
         }
     }
@@ -178,34 +185,72 @@ public class HelloController {
         }
 
     }
-
      */
+    public void uruchomDijsktra(int pierwszy, int ostatni){
+        Sciezka doWykresu = Dijkstra.Algorytm(AdjacMat.Macierz(g), pierwszy, ostatni);
+        for(int i = 0; i < doWykresu.vertices.size(); i++)
+        {
+            System.out.println("Wezel " + i + " " + doWykresu.vertices.get(i));
+        }
+        canvas.setStroke(Color.INDIANRED);
+        int licznik = 0;
+        int licznikSciezka = 0;
+        for (int j = 0; j < g.rows; j++) {
+            for (int i = 0; i < g.columns; i++) {
+                if (licznik == doWykresu.vertices.get(licznikSciezka) && licznikSciezka + 1 < doWykresu.vertices.size()) {
+                    System.out.println(licznik + " ," + licznikSciezka);
+                    System.out.println("Linia X: " + kordyX[doWykresu.vertices.get(licznikSciezka)]);
+                    System.out.println("Linia Y: " + kordyY[doWykresu.vertices.get(licznikSciezka)]);
+                    System.out.println(srednica);
+                    if (doWykresu.vertices.get(licznikSciezka) == doWykresu.vertices.get(licznikSciezka + 1) + 1) {
+                        canvas.strokeLine(kordyX[doWykresu.vertices.get(licznikSciezka)] + srednica, kordyY[doWykresu.vertices.get(licznikSciezka)] + srednica / 2, kordyX[doWykresu.vertices.get(licznikSciezka)] + srednica * 2, kordyY[doWykresu.vertices.get(licznikSciezka)] + srednica / 2);
+                    } else if (doWykresu.vertices.get(licznikSciezka) == doWykresu.vertices.get(licznikSciezka + 1) - 1) {
+                        canvas.strokeLine(kordyX[doWykresu.vertices.get(licznikSciezka)], kordyY[doWykresu.vertices.get(licznikSciezka)] + srednica / 2, kordyX[doWykresu.vertices.get(licznikSciezka)] - srednica, kordyY[doWykresu.vertices.get(licznikSciezka)] + srednica / 2);
+                    } else if (doWykresu.vertices.get(licznikSciezka) == doWykresu.vertices.get(licznikSciezka + 1) - g.columns) {
+                        canvas.strokeLine(kordyX[doWykresu.vertices.get(licznikSciezka)] + srednica / 2, kordyY[doWykresu.vertices.get(licznikSciezka)], kordyX[doWykresu.vertices.get(licznikSciezka)] + srednica / 2, kordyY[doWykresu.vertices.get(licznikSciezka)] - srednica);
+                    } else if (doWykresu.vertices.get(licznikSciezka) == doWykresu.vertices.get(licznikSciezka + 1) + g.columns) {
+                        canvas.strokeLine(kordyX[doWykresu.vertices.get(licznikSciezka)] + srednica / 2, kordyY[doWykresu.vertices.get(licznikSciezka)], kordyX[doWykresu.vertices.get(licznikSciezka)] + srednica / 2, kordyY[doWykresu.vertices.get(licznikSciezka)] + srednica * 2);
+                    }
+                    licznikSciezka++;
+                }
+                licznik++;
+            }
+        }
+    }
 
     public void rozpoczecieRys(MouseEvent mouseEvent) throws IOException {
         //savedPathClicked = false;
         double mouseX = mouseEvent.getX();
         double mouseY = mouseEvent.getY();
+
         clickedPoints++;
 
         coordinateY = 0 + srednica / 2;
+
+        int licznik = 0;
+        int pierwszy = 0;
+        int ostatni = 0;
 
         for (int i = 0; i < g.rows; i++) {
             coordinateY += srednica * 2;
             coordinateX = 0 + srednica / 2;
             for (int j = 0; j < g.columns; j++) {
-                if ((mouseX >= coordinateX && mouseX <= coordinateX + srednica) && (mouseY >= coordinateY && mouseY <= coordinateY + srednica)) {
+                if ((mouseX >= coordinateX && mouseX <= coordinateX + srednica) && (mouseY >= coordinateY && mouseY <= coordinateY + srednica*2)) {
                     if (clickedPoints % 2 == 1) {
                         //numPath++;
-                        //clearPath();
+                        //clearPath(); // TRZEBA DODAĆ USUWANIE ŚCIEŻEK
+                        pierwszy = licznik;
                         canvas.setStroke(Color.BLACK);
-                        canvas.strokeOval(coordinateX, coordinateY + srednica/2, srednica, srednica);
+                        canvas.strokeOval(coordinateX, coordinateY + srednica/(1.5), srednica, srednica);
                     } else if (clickedPoints % 2 == 0) {
+                        ostatni = licznik;
                         canvas.setStroke(Color.BLACK);
-                        canvas.strokeOval(coordinateX, coordinateY + srednica/2, srednica, srednica);
-                        //chooseModeAnalyzer();
+                        canvas.strokeOval(coordinateX, coordinateY + srednica/(1.5), srednica, srednica);
+                        uruchomDijsktra(pierwszy, ostatni);
                     }
                 }
                 coordinateX += srednica * 2;
+                licznik++;
             }
         }
     }
