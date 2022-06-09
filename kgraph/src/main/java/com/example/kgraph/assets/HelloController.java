@@ -48,7 +48,7 @@ public class HelloController {
     public Canvas can;
 
     final int max = 400;
-    int srednica;
+    double srednica;
     double coordinateX;
     double coordinateY;
     GraphicsContext canvas;
@@ -75,13 +75,12 @@ public class HelloController {
         kordyY = new double[g.columns * g.rows];
         canvas = can.getGraphicsContext2D();
         clearCanvas(canvas, can);
-        srednica = 60;
-        coordinateY = 0 + srednica / 2;
+        srednica = 70;
         canvas.setStroke(Color.LIGHTBLUE);
-
         while (srednica * g.columns * 2 >= max || srednica * g.rows * 2 >= max) {
             srednica /= 1.5;
         }
+        coordinateY = 0 + srednica / 2;
         for (int i = 0; i < g.rows; i++) {
             coordinateY += srednica * 2;
             coordinateX = 0 + srednica / 2;
@@ -96,7 +95,6 @@ public class HelloController {
             }
         }
         for (int i = 0; i < g.columns * g.rows; i++) {
-
             if ((i + 1) % g.columns != 0) {
                 canvas.strokeLine(kordyX[i] + srednica, kordyY[i] + srednica/2, kordyX[i] + srednica*2,kordyY[i] + srednica/2);
             }
@@ -110,12 +108,6 @@ public class HelloController {
                 canvas.strokeLine(kordyX[i] + srednica/2, kordyY[i] + srednica, kordyX[i] + srednica/2, kordyY[i] + srednica*2);
             }
         }
-        for (int i = 0; i < licznik; i++)
-        {
-            System.out.println(kordyX[i]);
-            System.out.println(kordyY[i]);
-        }
-        System.out.println("Srednica przy generowaniu: " + srednica);
     }
 
     public void clearCanvas(GraphicsContext gc, Canvas cv) {
@@ -146,23 +138,24 @@ public class HelloController {
                 skad = Integer.parseInt(txt_field7.getText());
             }
             if (txt_field8.getText() == null || txt_field8.getText() == "") {
-                dokad = 8;
+                dokad = 0;
             } else {
                 dokad = Integer.parseInt(txt_field8.getText());
             }
             try {
-
-
-                Sciezka doWykresu = Dijkstra.Algorytm(AdjacMat.Macierz(g), skad, dokad);
-
-                if (doWykresu != null) {
-                    txt_field6.setText("Dlugosc trasy: " + String.format("%.4f", doWykresu.waga));
-                } else {
-                    txt_field6.setText("Dane do dijkstry poza zakresem.");
-                }
-
                 txt_field7.setText(String.valueOf(skad));
                 txt_field8.setText(String.valueOf(dokad));
+                wyswietlGraf(g);
+                for (int i = 0; i < g.rows * g.columns; i++)
+                {
+                    pierwszy = Integer.parseInt(txt_field7.getText());
+                    canvas.setStroke(Color.BLACK);
+                    canvas.strokeOval(kordyX[pierwszy], kordyY[pierwszy], srednica, srednica);
+                    ostatni = Integer.parseInt(txt_field8.getText());
+                    canvas.setStroke(Color.BLACK);
+                    canvas.strokeOval(kordyX[ostatni], kordyY[ostatni], srednica, srednica);
+                    uruchomDijsktra(pierwszy, ostatni);
+                }
             } catch (Exception e) {
                 ErrorsMgmt.awaria(0);
             }
@@ -212,7 +205,7 @@ public class HelloController {
         if (czySpojny == true) {
             wyswietlGraf(g);
         } else return;
-
+        /*
         int skad = 0;
         int dokad = 8;
         Sciezka doWykresu = Dijkstra.Algorytm(AdjacMat.Macierz(g), skad, dokad); // do uzupełnienia węzły początkowe i końcowe
@@ -226,7 +219,7 @@ public class HelloController {
             txt_field7.setText(String.valueOf(skad));
             txt_field8.setText(String.valueOf(dokad));
         } else System.out.println("Program: Nie udalo sie stworzyc sciezki.");
-        //*/
+        */
     }
 
 
@@ -267,9 +260,6 @@ public class HelloController {
         canvas.setStroke(Color.INDIANRED);
         canvas.setFill(Color.INDIANRED);
         for (int i = 0; i < doWykresu.vertices.size(); i++) {
-            System.out.println("Wezel " + doWykresu.vertices.get(i) + " X: " + kordyX[doWykresu.vertices.get(i)] + " Y: " + kordyY[doWykresu.vertices.get(i)]);
-        }
-        for (int i = 0; i < doWykresu.vertices.size(); i++) {
             canvas.fillOval(kordyX[doWykresu.vertices.get(i)], kordyY[doWykresu.vertices.get(i)], srednica, srednica);
         }
         for (int i = 0; i < doWykresu.vertices.size(); i++) {
@@ -278,22 +268,18 @@ public class HelloController {
         for (int i = 0; i < doWykresu.vertices.size() - 1; i++) {
             if (doWykresu.vertices.get(i + 1) == doWykresu.vertices.get(i) - 1)
             {
-                System.out.println("Lewo");
                 canvas.strokeLine(kordyX[doWykresu.vertices.get(i)], kordyY[doWykresu.vertices.get(i)] + srednica/2, kordyX[doWykresu.vertices.get(i)] - srednica, kordyY[doWykresu.vertices.get(i)] + srednica/2);
             }
             if(doWykresu.vertices.get(i + 1) == doWykresu.vertices.get(i) + 1)
             {
-                System.out.println("Prawo");
                 canvas.strokeLine(kordyX[doWykresu.vertices.get(i)] + srednica, kordyY[doWykresu.vertices.get(i)] + srednica/2, kordyX[doWykresu.vertices.get(i)] + srednica*2,kordyY[doWykresu.vertices.get(i)] + srednica/2);
             }
             if(doWykresu.vertices.get(i + 1) == doWykresu.vertices.get(i) - g.columns)
             {
-                System.out.println("Góra");
                 canvas.strokeLine(kordyX[doWykresu.vertices.get(i)] + srednica/2, kordyY[doWykresu.vertices.get(i)], kordyX[doWykresu.vertices.get(i)] + srednica/2, kordyY[doWykresu.vertices.get(i)] - srednica);
             }
             if(doWykresu.vertices.get(i + 1) == doWykresu.vertices.get(i) + g.columns)
             {
-                System.out.println("Dół");
                 canvas.strokeLine(kordyX[doWykresu.vertices.get(i)] + srednica/2, kordyY[doWykresu.vertices.get(i)] + srednica, kordyX[doWykresu.vertices.get(i)] + srednica/2, kordyY[doWykresu.vertices.get(i)] + srednica*2);
             }
         }
@@ -337,17 +323,11 @@ public class HelloController {
 
         coordinateY = 0 + srednica / 2;
 
-        int licznik = 0;
-        System.out.println("Myszka X: " + mouseX);
-        System.out.println("Myszka Y: " + mouseX);
         for (int i = 0; i < g.rows * g.columns; i++){
             if ((mouseX >= kordyX[i] && mouseX <= kordyX[i] + srednica) && (mouseY >= kordyY[i] && mouseY <= kordyY[i] + srednica * 2))
             {
                 if (clickedPoints % 2 == 1) {
-                    if (clickedPoints != 1)
-                    {
-                        wyswietlGraf(g);
-                    }
+                    wyswietlGraf(g);
                     pierwszy = i;
                     canvas.setStroke(Color.BLACK);
                     canvas.strokeOval(kordyX[i], kordyY[i], srednica, srednica);
